@@ -14,6 +14,7 @@
   - [Session 1 - Basic Setup](#session-1---basic-setup)
     - [Testing frameworks](#testing-frameworks)
     - [Auxiliary Types](#auxiliary-types)
+    - [Next Steps](#next-steps)
 
 ## Session 0 - Planning
 
@@ -148,3 +149,17 @@ For my integration and end-to-end testing, I will use [supertest](https://www.np
 ### Auxiliary Types
 
 To simplify any manipulation I may want to perform, I also created some base classes for each of the types I will be using during development.
+
+### Next Steps
+
+For my next session my priority is the authentication flow.
+
+Here is a rough list of topics I want to cover in the next session:
+
+- Implement authentication flow
+  - Receive user-name and password
+  - Pretend to check validity of user-password
+  - Create temporary API token
+  - Store temporary token in in-memory database
+- Implement authentication middleware
+- Implement TTL checks
