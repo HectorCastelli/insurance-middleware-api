@@ -13,6 +13,7 @@
       - [Unit Tests](#unit-tests)
   - [Session 1 - Basic Setup](#session-1---basic-setup)
     - [Testing frameworks](#testing-frameworks)
+    - [Auxiliary Types](#auxiliary-types)
 
 ## Session 0 - Planning
 
@@ -143,3 +144,7 @@ I decided to create one test file per use-case on the end-to-end tests and one t
 I've decided to use [mocha](https://www.npmjs.com/package/mocha) as my test runner due to it's popularity.
 
 For my integration and end-to-end testing, I will use [supertest](https://www.npmjs.com/package/supertest) to get and validate http requests, as well as [chai](https://www.npmjs.com/package/chai) to use the `expect` syntax.
+
+### Auxiliary Types
+
+To simplify any manipulation I may want to perform, I also created some base classes for each of the types I will be using during development.
