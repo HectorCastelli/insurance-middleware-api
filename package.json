@@ -1,0 +1,25 @@
+{
+  "name": "insurance-middleware-api",
+  "version": "1.0.0",
+  "description": "A middleware API for insurance information",
+  "main": "src/app.js",
+  "scripts": {
+    "test": "mocha --recursive"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/HectorCastelli/insurance-middleware-api.git"
+  },
+  "keywords": [
+    "api",
+    "middleware",
+    "express",
+    "insurance"
+  ],
+  "author": "Hector Castelli Zacharias",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/HectorCastelli/insurance-middleware-api/issues"
+  },
+  "homepage": "https://github.com/HectorCastelli/insurance-middleware-api#readme"
+}
