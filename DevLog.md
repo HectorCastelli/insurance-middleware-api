@@ -11,6 +11,8 @@
       - [End-To-End](#end-to-end)
       - [Integration](#integration)
       - [Unit Tests](#unit-tests)
+  - [Session 1 - Basic Setup](#session-1---basic-setup)
+    - [Testing frameworks](#testing-frameworks)
 
 ## Session 0 - Planning
 
@@ -79,56 +81,65 @@ After analyzing the file that should mirror my API I've decided on creating the 
 #### Integration
 
 - POST /login
-  - When sending valid user credentials, receive valid authentication token
-  - When sending credentials for a user that does not exist, receive an error 401
-  - When sending an invalid request, receive a 400 error with message
+  - When sending valid user credentials, then receive valid authentication token
+  - When sending credentials for a user that does not exist, then receive an error 401
+  - When sending an invalid request, then receive a 400 error with message
 - GET /policies
-  - When sending a request without authentication, receive a 403 error.
+  - When sending a request without authentication, then receive a 403 error.
   - With "user" role
-    - When sending a request, receive a list of up to 10 of my own policies
-    - When sending a request with parameter limit = n, receive a list of n of my own policies
+    - When sending a request, then receive a list of up to 10 of my own policies
+    - When sending a request with parameter limit = n, then receive a list of n of my own policies
   - With "admin" role
-    - When sending a request, receive a list of up to 10 of policies for all users
-    - When sending a request with parameter limit = n, receive a list of n policies for all users
+    - When sending a request, then receive a list of up to 10 of policies for all users
+    - When sending a request with parameter limit = n, then receive a list of n policies for all users
 - GET /policies/{id}
-  - When sending a request without authentication, receive a 403 error.
-  - When the id does not exist, receive a 404 error
+  - When sending a request without authentication, then receive a 403 error.
   - With "user" role
-    - When sending a request with one of the user's policy, receive that policy
-    - When sending a request with a policy id owned by another user, receive a 401 error
+    - When the id does not exist, then receive a 404 error
+    - When sending a request with one of the users policy, then receive that policy
+    - When sending a request with a policy id owned by another user, then receive a 401 error
   - With "admin" role
-    - When sending a request with one of the user's policy, receive that policy
-    - When sending a request with a policy id owned by another user, receive that policy
+    - When sending a request with one of the users policy, then receive that policy
+    - When sending a request with a policy id owned by another user, then receive that policy
 - GET /clients
-  - When sending a request without authentication, receive a 403 error.
-  - When the id does not exist, receive a 404 error
+  - When sending a request without authentication, then receive a 403 error.
   - With "user" role
     - When sending a request, redirect to /clients/{id} where id = this client's id
   - With "admin" role
-    - When sending a request, receive a list of up to 10 clients with their policies
-    - When sending a request with parameter limit = n, receive a list of n clients with their policies
-    - When sending a request with parameter name = <?>, receive a list of up to 10 clients with the name = <?>
+    - When sending a request, then receive a list of up to 10 clients with their policies
+    - When sending a request with parameter limit = n, then receive a list of n clients with their policies
+    - When sending a request with parameter name = <?>, then receive a list of up to 10 clients with the name = <?>
 - GET /clients/{id}
-  - When sending a request without authentication, receive a 403 error.
-  - When the id does not exist, receive a 404 error
+  - When sending a request without authentication, then receive a 403 error.
   - With "user" role
-    - When sending a request with the user's client id, receive the associated client data
-    - When sending a request with a client id owned by another user, receive a 401 error
+    - When sending a request with the users client id, then receive the associated client data
+    - When sending a request with a client id owned by another user, then receive a 401 error
   - With "admin" role
-    - When sending a request with an inexistent client id, receive a 404 error
-    - When sending a request with one of the user's client id, receive that client data
-    - When sending a request with a client id owned by another user, receive that client data
+    - When the id does not exist, then receive a 404 error
+    - When sending a request with an inexistent client id, then receive a 404 error
+    - When sending a request with one of the users client id, then receive that client data
+    - When sending a request with a client id owned by another user, then receive that client data
 - GET /clients/{id}/policies
-  - When sending a request without authentication, receive a 403 error.
-  - When the id does not exist, receive a 404 error
+  - When sending a request without authentication, then receive a 403 error.
   - With "user" role
-    - When sending a request with the user's client id, receive the associated policy data
-    - When sending a request with a client id owned by another user, receive a 401 error
+    - When sending a request with the users client id, then receive the associated policy data
+    - When sending a request with a client id owned by another user, then receive a 401 error
   - With "admin" role
-    - When sending a request with an inexistent client id, receive a 404 error
-    - When sending a request with one of the user's client id, receive that policy data
-    - When sending a request with a client id owned by another user, receive that policy data
+    - When sending a request with one of the users client id, then receive that policy data
+    - When sending a request with a client id owned by another user, then receive that policy data
 
 #### Unit Tests
 
 Since the methods that will be available are yet to be defined, I will revisit this topic at a later date.
+
+## Session 1 - Basic Setup
+
+For this session I aim to setup the basic app and to create tests mentioned above (with the exception of unit tests, since the logic of the services has still TBD).
+
+I decided to create one test file per use-case on the end-to-end tests and one test file per route when creating integration tests. This way, it should be easier to diagnose where the issues lie and each test file will be minimal, only requiring the data relevant to it's own scopes.
+
+### Testing frameworks
+
+I've decided to use [mocha](https://www.npmjs.com/package/mocha) as my test runner due to it's popularity.
+
+For my integration and end-to-end testing, I will use [supertest](https://www.npmjs.com/package/supertest) to get and validate http requests, as well as [chai](https://www.npmjs.com/package/chai) to use the `expect` syntax.

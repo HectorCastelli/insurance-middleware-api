@@ -363,32 +363,30 @@
               "content": {
                 "application/json": {
                   "schema": {
-                    "items": {
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "email": {
-                          "type": "string"
-                        },
-                        "role": {
-                          "type": "string"
-                        },
-                        "policies": {
-                          "items": {
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "amountInsured": {
-                                "type": "string"
-                              },
-                              "inceptionDate": {
-                                "type": "string"
-                              }
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "email": {
+                        "type": "string"
+                      },
+                      "role": {
+                        "type": "string"
+                      },
+                      "policies": {
+                        "items": {
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "amountInsured": {
+                              "type": "string"
+                            },
+                            "inceptionDate": {
+                              "type": "string"
                             }
                           }
                         }
