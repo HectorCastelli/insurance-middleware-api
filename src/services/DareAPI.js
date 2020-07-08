@@ -16,6 +16,17 @@ const APIError = require('../types/APIError');
 class DareApi {
   constructor() {
     this.token = null;
+    this.clients = null;
+    this.policies = null;
+  }
+
+  async initialize() {
+    const completedAPI = await this.updateToken().then(async (tokenizedAPI) => {
+      const dataFetchTasks = [tokenizedAPI.fetchClients(), tokenizedAPI.fetchPolicies()];
+      const apiWithData = await Promise.all(dataFetchTasks).then((updatedApi) => updatedApi);
+      return apiWithData.pop();
+    });
+    return completedAPI;
   }
 
   async updateToken() {
@@ -33,7 +44,7 @@ class DareApi {
     return `${this.token.type} ${this.token.token}`;
   }
 
-  async getClients() {
+  async fetchClients() {
     const clients = await request.get(`${apiPath}/clients`)
       .set('Authorization', this.authToken)
       .use(superagentCache)
@@ -42,10 +53,10 @@ class DareApi {
         throw new APIError(500, `There was a problem fetching the Client Data: ${err}`);
       });
     this.clients = clients;
-    return this.clients;
+    return this;
   }
 
-  async getPolicies() {
+  async fetchPolicies() {
     const policies = await request.get(`${apiPath}/policies`)
       .set('Authorization', this.authToken)
       .use(superagentCache)
@@ -54,7 +65,7 @@ class DareApi {
         throw new APIError(500, `There was a problem fetching the Policy Data: ${err}`);
       });
     this.policies = policies;
-    return this.policies;
+    return this;
   }
 }
 
