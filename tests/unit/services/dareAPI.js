@@ -8,8 +8,8 @@ const DareAPI = require('../../../src/services/DareAPI');
 describe('DareAPI Service', () => {
   let apiInstance;
   beforeEach((done) => {
-    new DareAPI().updateToken().then((dare) => {
-      apiInstance = dare;
+    new DareAPI().initialize().then((dareAPI) => {
+      apiInstance = dareAPI;
       done();
     });
   });
@@ -19,15 +19,7 @@ describe('DareAPI Service', () => {
     done();
   });
   it('Is able to request data from the 3rd party API', (done) => {
-    apiInstance.getClients().then((clients) => {
-      expect(clients).to.be.a('array').with.lengthOf.at.least(1);
-      done();
-    });
-  });
-  it('Uses the previously cached data when re-fetching from the API', (done) => {
-    apiInstance.getClients().then((clients) => {
-      expect(clients).to.be.a('array').with.lengthOf.at.least(1);
-      done();
-    });
+    expect(apiInstance.clients).to.have.length.of.at.least(1);
+    done();
   });
 });

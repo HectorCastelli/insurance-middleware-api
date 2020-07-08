@@ -39,7 +39,7 @@ describe('Login Controller', () => {
       .end((error, response) => {
         expect(response).to.have.status(401);
         expect(response.body).to.haveOwnProperty('code', '401');
-        expect(response.body).to.have.keys('code', 'message');
+        expect(response.body).to.have.keys('code', 'message', 'isAPIError');
         done();
       });
   });
@@ -48,7 +48,7 @@ describe('Login Controller', () => {
       .end((error, response) => {
         expect(response).to.have.status(400);
         expect(response.body).to.haveOwnProperty('code', '400');
-        expect(response.body).to.have.keys('code', 'message');
+        expect(response.body).to.have.keys('code', 'message', 'isAPIError');
         done();
       });
   });

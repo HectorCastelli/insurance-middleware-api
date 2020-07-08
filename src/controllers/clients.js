@@ -39,6 +39,9 @@ router.get('/', inputValidation(query('name').isAlphanumeric().optional(), query
 router.get('/:id', (req, res, next) => {
   if (req.auth.role === 'user' && req.params.id !== req.auth.sub) {
     throw new APIError(403, 'You do not have permission to access this Client');
+  } else if (req.params.id === 'me') {
+    console.log(req.params.id, req.auth.sub);
+    res.redirect(`./clients/${req.auth.sub}`);
   } else {
     console.warn(req.params.id, req.auth.role, req.auth.sub);
     new DareAPI().initialize().then((dareAPI) => {
@@ -63,6 +66,8 @@ router.get('/:id', (req, res, next) => {
 router.get('/:id/policies', (req, res, next) => {
   if (req.auth.role === 'user' && req.params.id !== req.auth.sub) {
     throw new APIError(403, 'You do not have permission to access this Client');
+  } else if (req.params.id === 'me') {
+    res.redirect(`./clients/${req.auth.sub}`);
   } else {
     new DareAPI().initialize().then((dareAPI) => {
       const policies = dareAPI.policies.filter((policy) => policy.clientId === req.params.id);
