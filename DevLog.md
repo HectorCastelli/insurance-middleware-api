@@ -23,6 +23,7 @@
   - [Session 3 - Business Logic](#session-3---business-logic)
     - [End-To-End tests](#end-to-end-tests)
     - [Final Steps](#final-steps)
+  - [Session 4 - Documentation](#session-4---documentation)
 
 ## Session 0 - Planning
 
@@ -236,3 +237,5 @@ My objective here is to simulate use-cases and compare the results from multiple
 Now, the only thing that remains is the documentation portion of the work.
 
 I want to update the Readme file and add a list of my commands, I also want to point users towards the Swagger file.
+
+## Session 4 - Documentation

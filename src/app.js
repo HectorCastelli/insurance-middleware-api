@@ -35,6 +35,6 @@ app.use((error, req, res, next) => {
 });
 
 // eslint-disable-next-line no-console
-app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));
+app.listen(port, () => console.log(`Insurance Middleware API listening at http://localhost:${port}`));
 
 module.exports = app;
