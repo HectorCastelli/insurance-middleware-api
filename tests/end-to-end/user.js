@@ -1,9 +1,9 @@
 const chai = require('chai');
 
 const { expect } = chai;
-const { describe, it } = require('assert');
-const request = require('supertest');
+const { describe, it } = require('mocha');
 
+const request = require('supertest');
 const app = require('../../src/app');
 
 describe("Admin Functionality", () => {
