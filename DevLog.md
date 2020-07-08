@@ -19,6 +19,7 @@
     - [Validating Requests](#validating-requests)
     - [Validating users email](#validating-users-email)
     - [Creating authentication middleware](#creating-authentication-middleware)
+    - [Moving on](#moving-on)
 
 ## Session 0 - Planning
 
@@ -195,3 +196,20 @@ Timeouts and retries will be incorporated, so, no errors should be thrown back i
 This middleware will use the JWT decoded token added to the request by the [express-jwt](https://www.npmjs.com/package/express-jwt) library and will verify if the role matches any role in a list of string.
 
 If the role doesn't match, it will short-circuit the request with an authentication error.
+
+### Moving on
+
+Now that the authentication mechanism works and there is a layer to access the 3rd party API in place, I can focus on implementing the rest of the API logic.
+
+Here are the tasks I want to do on the next session:
+
+- Implement Policies operations
+  - Implement /policies endpoint
+  - Implement /policies/{id} endpoint
+  - Update Integration Tests
+- Implement Clients operations
+  - Implement /clients endpoint
+  - Implement /clients/{id} endpoint
+  - Implement /clients/{id}/policies endpoint
+  - Update Integration Tests
+- Implement end-to-end tests
