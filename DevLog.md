@@ -15,6 +15,9 @@
     - [Testing frameworks](#testing-frameworks)
     - [Auxiliary Types](#auxiliary-types)
     - [Next Steps](#next-steps)
+  - [Session 2 - Authentication](#session-2---authentication)
+    - [Validating Requests](#validating-requests)
+    - [Validating users email](#validating-users-email)
 
 ## Session 0 - Planning
 
@@ -157,9 +160,31 @@ For my next session my priority is the authentication flow.
 Here is a rough list of topics I want to cover in the next session:
 
 - Implement authentication flow
-  - Receive user-name and password
-  - Pretend to check validity of user-password
-  - Create temporary API token
-  - Store temporary token in in-memory database
+  - Receive user email and password
+  - Verify email exists on API
+  - Pretend to check validity of user-password combination
+  - Create temporary API token with information about user, role and expiry date
 - Implement authentication middleware
 - Implement TTL checks
+
+## Session 2 - Authentication
+
+Since the requirements explain that we need to authenticate users with OAuth2.0, and while this protocol recommends two-steps, the RFC understands that there are moments where you want to have a single step for authentication:
+
+> In some cases, a client can directly present its own credentials to an authorization server to obtain an access token without having to first obtain an authorization grant from a resource owner. [¹](https://tools.ietf.org/html/rfc6750#section-1.3)
+
+### Validating Requests
+
+Before moving on to implementation, I want to make sure I have strong request body validation in-place. To achieve this I used [express-validator](https://www.npmjs.com/package/express-validator) and implemented a new middleware responsible for returning a validation error if there is any.
+
+Since the library does not offer a middleware by itself and it requires developers to add logic to each route for aborting a request based on errors, I will create one. After a little bit of research, I have found [this issue](https://github.com/express-validator/express-validator/issues/636#issuecomment-424483540) that discussed what I want to achieve, so, due to time-constraints, I will borrow some of that code.
+
+### Validating users email
+
+To verify that a user exists, we need to connect to the 3rd party API and check if there is a Client with that email.
+
+To achieve this is a way that would be easy for developers, I will create a service that will do all the necessary lifting to connect to the 3rd party API and exposes easy to use methods for common use-cases.
+
+This service will look like a database layer for the uninterested eyes, removing the overhead of working with an external API.
+
+Timeouts and retries will be incorporated, so, no errors should be thrown back into the developer's face unless the 3rd party API is completely unavailable.

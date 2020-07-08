@@ -28,12 +28,17 @@
     "eslint": "^7.4.0",
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
-    "mocha": "^8.0.1",
-    "supertest": "^4.0.2"
+    "mocha": "^8.0.1"
   },
   "dependencies": {
+    "body-parser": "^1.19.0",
+    "cache-service-cache-module": "^2.0.1",
     "express": "^4.17.1",
+    "express-validator": "^6.6.0",
     "morgan": "^1.10.0",
+    "npm": "^6.14.6",
+    "superagent": "^5.3.1",
+    "superagent-cache-plugin": "^3.0.0-beta.1",
     "swagger-ui-express": "^4.1.4"
   }
 }
