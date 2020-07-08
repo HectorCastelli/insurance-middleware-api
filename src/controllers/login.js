@@ -13,7 +13,8 @@ router.post('/', inputValidation(body('username').isEmail().normalizeEmail(), bo
   const loginObject = req.body;
   new DareAPI().initialize().then((dareAPI) => {
     if (dareAPI.clients.some((client) => client.email === loginObject.username)) {
-      const authClient = dareAPI.clients.filter((client) => client.email === loginObject.username).pop();
+      const authClient = dareAPI.client
+        .filter((client) => client.email === loginObject.username).pop();
       // Pretend to check if the user email+password combination matches.
       if (loginObject.password !== 'password') {
         throw new APIError(401, 'The credentials do not match');

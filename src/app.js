@@ -23,13 +23,13 @@ const APIError = require('./types/APIError');
 app.use('/api/v1', apiRouter);
 
 // Setup global error handler
-app.use((error, req, res, next) => {
+// eslint-disable-next-line no-unused-vars
+app.use((error, _req, res, _next) => {
   if (error instanceof APIError || error.isAPIError) {
     res.status(error.code).send(error);
   } else if (error.name === 'UnauthorizedError') {
     res.status(401).send(new APIError(401, 'You are not authenticated.'));
   } else {
-    console.error('UNEXPECTED!', error);
     res.status(500).send(error);
   }
 });

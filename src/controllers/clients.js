@@ -40,10 +40,8 @@ router.get('/:id', (req, res, next) => {
   if (req.auth.role === 'user' && req.params.id !== req.auth.sub) {
     throw new APIError(403, 'You do not have permission to access this Client');
   } else if (req.params.id === 'me') {
-    console.log(req.params.id, req.auth.sub);
     res.redirect(`./clients/${req.auth.sub}`);
   } else {
-    console.warn(req.params.id, req.auth.role, req.auth.sub);
     new DareAPI().initialize().then((dareAPI) => {
       let clients = dareAPI.clients.filter((client) => client.id === req.params.id);
 
