@@ -1,18 +1,21 @@
 const chai = require('chai');
+const chaiHttp = require('chai-http');
 
 const { expect } = chai;
 const { describe, it } = require('mocha');
 
-const request = require('supertest');
+chai.use(chaiHttp);
+
+const { request } = chai;
 
 const app = require('../../src/app');
 
 const listLimit = 2;
 
 describe('Policies/{id} Controller', () => {
-  it('When sending a request without authentication, then receive a 403 error.', (done) => {
+  it('When sending a request without authentication, then receive a 403 error', (done) => {
     request(app).post('/policies').expect(403)
-      .then((response) => {
+      .end((error, response) => {
         expect(response.body).to.have.property('code', '403')
           .and.to.have.property('message');
         done();
@@ -22,17 +25,17 @@ describe('Policies/{id} Controller', () => {
     before((done) => {
       // TODO: Perform authentication flow
     });
-    it('When sending a request, then receive a list of up to 10 of my own policies.', (done) => {
+    it('When sending a request, then receive a list of up to 10 of my own policies', (done) => {
       request(app).post('/policies').expect(200)
-        .then((response) => {
+        .end((error, response) => {
           expect(response.body).to.be('array')
             .and.to.have.length.of.at.most(10);
           done();
         });
     });
-    it('When sending a request with parameter limit = n, then receive a list of n policies for all users.', (done) => {
+    it('When sending a request with parameter limit = n, then receive a list of n policies for all users', (done) => {
       request(app).post(`/policies?limit=${listLimit}`).expect(200)
-        .then((response) => {
+        .end((error, response) => {
           expect(response.body).to.be('array')
             .and.to.have.length.of.at.most(listLimit);
           done();
@@ -43,17 +46,17 @@ describe('Policies/{id} Controller', () => {
     before((done) => {
       // TODO: Perform authentication flow
     });
-    it('When sending a request, then receive a list of up to 10 of my own policies.', (done) => {
+    it('When sending a request, then receive a list of up to 10 of my own policies', (done) => {
       request(app).post('/policies').expect(200)
-        .then((response) => {
+        .end((error, response) => {
           expect(response.body).to.be('array')
             .and.to.have.length.of.at.most(10);
           done();
         });
     });
-    it('When sending a request with parameter limit = n, then receive a list of n policies for all users.', (done) => {
+    it('When sending a request with parameter limit = n, then receive a list of n policies for all users', (done) => {
       request(app).post(`/policies?limit=${listLimit}`).expect(200)
-        .then((response) => {
+        .end((error, response) => {
           expect(response.body).to.be('array')
             .and.to.have.length.of.at.most(listLimit);
           done();

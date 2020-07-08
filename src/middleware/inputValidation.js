@@ -4,8 +4,8 @@ const APIError = require('../types/APIError');
 function validationErrorMiddleware(req, res, next) {
   const validationErrors = validationResult(req).array();
   if (validationErrors.length) {
-    let errorMessage = 'This Request contains Validation Errors:\n';
-    validationErrors.map((validationError) => `${validationError.param} : ${validationError.msg}`).forEach((error) => { errorMessage += `\n${error}`; });
+    let errorMessage = 'This Request contains Validation Errors:';
+    validationErrors.map((validationError) => `${validationError.param} : ${validationError.msg}.`).forEach((error) => { errorMessage += `\n${error}`; });
     res.status(400).send(new APIError(400, errorMessage));
   } else {
     next();

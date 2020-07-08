@@ -10,7 +10,8 @@ router.use(bodyParser.json());
 // Setup Morgan
 const morgan = require('morgan');
 
-router.use(morgan('combined'));
+router.use(morgan('common'));
+
 // Login Router
 const loginRouter = require('./login');
 

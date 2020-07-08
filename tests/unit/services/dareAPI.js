@@ -13,21 +13,21 @@ describe('DareAPI Service', () => {
       done();
     });
   });
-  it('Request a valid authentication when constructed', (done) => {
+  it('Request a valid authentication when constructed'', (done) => {
     expect(apiInstance.authToken).to.be.a('string')
       .and.to.contain('Bearer');
-    done();
-  });
-  it('Is able to request data from the 3rd party API', (done) => {
+  done();
+});
+it('Is able to request data from the 3rd party API'', (done) => {
     apiInstance.getClients().then((clients) => {
-      expect(clients).to.be.a('array').with.lengthOf.at.least(1);
-      done();
-    });
+  expect(clients).to.be.a('array').with.lengthOf.at.least(1);
+  done();
+});
   });
-  it('Uses the previously cached data when re-fetching from the API', (done) => {
+it('Uses the previously cached data when re-fetching from the API'', (done) => {
     apiInstance.getClients().then((clients) => {
-      expect(clients).to.be.a('array').with.lengthOf.at.least(1);
-      done();
-    });
+  expect(clients).to.be.a('array').with.lengthOf.at.least(1);
+  done();
+});
   });
 });
