@@ -24,12 +24,12 @@ app.use('/api/v1', apiRouter);
 
 // Setup global error handler
 app.use((error, req, res, next) => {
-  if (error instanceof APIError) {
+  if (error instanceof APIError || error.isAPIError) {
     res.status(error.code).send(error);
-  } else if (error.code && error.message) {
-    res.status(error.code).send(error);
+  } else if (error.name === 'UnauthorizedError') {
+    res.status(401).send(new APIError(401, 'You are not authenticated.'));
   } else {
-    console.error("UNEXPECTED!", error);
+    console.error('UNEXPECTED!', error);
     res.status(500).send(error);
   }
 });

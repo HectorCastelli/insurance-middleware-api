@@ -10,4 +10,8 @@ router.get('/:id', (req, res) => {
 
 });
 
+router.get('/:id/policies', (req, res) => {
+
+});
+
 module.exports = router;

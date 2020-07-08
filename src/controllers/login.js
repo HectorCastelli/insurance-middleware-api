@@ -21,6 +21,7 @@ router.post('/', inputValidation(body('username').isEmail().normalizeEmail(), bo
         const currentEpoch = Math.round(new Date().getTime() / 1000);
         const claim = {
           sub: authClient.id,
+          id: authClient.email,
           role: authClient.role,
           iat: currentEpoch,
           exp: currentEpoch + 3600,

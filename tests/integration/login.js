@@ -27,11 +27,12 @@ const invalidUserCredentials = {
 
 describe('Login Controller', () => {
   it('When sending valid user credentials, then receive valid authentication token', (done) => {
-    request(app).post('/api/v1/login').send(validUserCredentials).end((error, response) => {
-      expect(response).to.have.status(200);
-      expect(response.body).to.have.keys('token', 'type', 'expires_in');
-      done();
-    });
+    request(app).post('/api/v1/login').send(validUserCredentials)
+      .end((error, response) => {
+        expect(response).to.have.status(200);
+        expect(response.body).to.have.keys('token', 'type', 'expires_in');
+        done();
+      });
   });
   it('When sending credentials for a user that does not exist, then receive an error 401', (done) => {
     request(app).post('/api/v1/login').send(inexistentUserCredentials)

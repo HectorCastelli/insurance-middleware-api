@@ -20,6 +20,7 @@
     - [Validating users email](#validating-users-email)
     - [Creating authentication middleware](#creating-authentication-middleware)
     - [Moving on](#moving-on)
+  - [Session 3 - Business Logic](#session-3---business-logic)
 
 ## Session 0 - Planning
 
@@ -55,7 +56,6 @@ To achieve my second point, I plan on using already existing packages.
 This is the list of packages I plan on integrating from the start, along with their purpose:
 
 - [eslint](https://www.npmjs.com/package/eslint): To provide a standard for the code-base
-- [apicache](https://www.npmjs.com/package/apicache): To implement caching on the API endpoints
 - [express-validator](https://www.npmjs.com/package/express-validator): To add request body validation
 - [express-jwt](https://www.npmjs.com/package/express-jwt): To add JWT validation for the API
 - [express-rate-limit](https://www.npmjs.com/package/express-rate-limit): To implement rate-limits into the API (useful if this was a real API)
@@ -63,7 +63,6 @@ This is the list of packages I plan on integrating from the start, along with th
 - [superagent](https://www.npmjs.com/package/superagent): Useful to make HTTP requests
 - [morgan](https://www.npmjs.com/package/morgan): A logging middleware for debugging
 - [swagger-ui-express](https://www.npmjs.com/package/swagger-ui-express): A nice rendered for Swagger file output
-- [http-status](https://www.npmjs.com/package/http-status): A nice helper library to give HTTP status "human" names
 
 ### Importing the Swagger structure
 
@@ -213,3 +212,15 @@ Here are the tasks I want to do on the next session:
   - Implement /clients/{id}/policies endpoint
   - Update Integration Tests
 - Implement end-to-end tests
+
+## Session 3 - Business Logic
+
+For this session I will focus on implementing the business logic one-step at a time.
+
+Before moving onto the application logic, I want to implement a pagination middleware.
+
+To keep things simple, I will do this after the request is "ready" to be sent out, meaning, after the data on the request is already selected and modeled.
+
+Unfortunately, the data that is currently available on the API is not sufficient to test all cases that I would like to have, so I have set some test to be skipped instead.
+
+
