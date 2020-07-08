@@ -35,7 +35,7 @@ router.post('/', inputValidation(body('username').isEmail().normalizeEmail(), bo
     } else {
       throw new APIError(401, 'This username is not valid');
     }
-  }).catch(err => { next(err); });
+  }).catch((err) => { next(err); });
 });
 
 module.exports = router;

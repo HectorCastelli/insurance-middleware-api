@@ -18,6 +18,7 @@
   - [Session 2 - Authentication](#session-2---authentication)
     - [Validating Requests](#validating-requests)
     - [Validating users email](#validating-users-email)
+    - [Creating authentication middleware](#creating-authentication-middleware)
 
 ## Session 0 - Planning
 
@@ -188,3 +189,9 @@ To achieve this is a way that would be easy for developers, I will create a serv
 This service will look like a database layer for the uninterested eyes, removing the overhead of working with an external API.
 
 Timeouts and retries will be incorporated, so, no errors should be thrown back into the developer's face unless the 3rd party API is completely unavailable.
+
+### Creating authentication middleware
+
+This middleware will use the JWT decoded token added to the request by the [express-jwt](https://www.npmjs.com/package/express-jwt) library and will verify if the role matches any role in a list of string.
+
+If the role doesn't match, it will short-circuit the request with an authentication error.

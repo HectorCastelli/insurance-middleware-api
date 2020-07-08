@@ -18,8 +18,21 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
 
 // Setup api router
 const apiRouter = require('./controllers/apiRouter');
+const APIError = require('./types/APIError');
 
 app.use('/api/v1', apiRouter);
+
+// Setup global error handler
+app.use((error, req, res, next) => {
+  if (error instanceof APIError) {
+    res.status(error.code).send(error);
+  } else if (error.code && error.message) {
+    res.status(error.code).send(error);
+  } else {
+    console.error("UNEXPECTED!", error);
+    res.status(500).send(error);
+  }
+});
 
 // eslint-disable-next-line no-console
 app.listen(port, () => console.log(`Example app listening at http://localhost:${port}`));

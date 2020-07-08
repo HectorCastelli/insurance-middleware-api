@@ -1,4 +1,4 @@
-const { validationResult } = require('express-validator/check');
+const { validationResult } = require('express-validator');
 const APIError = require('../types/APIError');
 
 function validationErrorMiddleware(req, res, next) {
