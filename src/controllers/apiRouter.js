@@ -2,6 +2,11 @@ const express = require('express');
 
 const router = new express.Router();
 
+// Setup Body Parser for JSON bodies
+const bodyParser = require('body-parser');
+
+router.use(bodyParser.json());
+
 // Setup Morgan
 const morgan = require('morgan');
 
