@@ -21,6 +21,8 @@
     - [Creating authentication middleware](#creating-authentication-middleware)
     - [Moving on](#moving-on)
   - [Session 3 - Business Logic](#session-3---business-logic)
+    - [End-To-End tests](#end-to-end-tests)
+    - [Final Steps](#final-steps)
 
 ## Session 0 - Planning
 
@@ -223,4 +225,14 @@ To keep things simple, I will do this after the request is "ready" to be sent ou
 
 Unfortunately, the data that is currently available on the API is not sufficient to test all cases that I would like to have, so I have set some test to be skipped instead.
 
+### End-To-End tests
 
+This is the only type of tests that remains.
+
+My objective here is to simulate use-cases and compare the results from multiples calls in various places on the API to get a sense of correctness.
+
+### Final Steps
+
+Now, the only thing that remains is the documentation portion of the work.
+
+I want to update the Readme file and add a list of my commands, I also want to point users towards the Swagger file.
