@@ -37,7 +37,8 @@
     "eslint-config-airbnb-base": "^14.2.0",
     "eslint-plugin-import": "^2.22.0",
     "husky": "^4.2.5",
-    "mocha": "^8.0.1"
+    "mocha": "^8.0.1",
+    "nock": "^13.0.2"
   },
   "dependencies": {
     "body-parser": "^1.19.0",

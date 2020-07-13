@@ -5,11 +5,6 @@ const port = 3000;
 
 app.get('/', (req, res) => res.send('Hello World!'));
 
-// Setup Morgan
-const morgan = require('morgan');
-
-app.use(morgan('tiny'));
-
 // Add swagger Doc output
 const swaggerUi = require('swagger-ui-express');
 const swaggerDocument = require('./swagger.json');

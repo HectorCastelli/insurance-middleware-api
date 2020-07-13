@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 const { request } = chai;
 
-const app = require('../../src/app');
+const app = require('../../../src/app');
 
 const validUserCredentials = {
   username: 'britneyblankenship@quotezart.com',

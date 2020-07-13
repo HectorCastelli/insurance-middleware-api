@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 const { request } = chai;
 
-const app = require('../../src/app');
+const app = require('../../../src/app');
 
 const validPolicyId = '7b624ed3-00d5-4c1b-9ab8-c265067ef58b';
 const inexistentPolicyId = '000';

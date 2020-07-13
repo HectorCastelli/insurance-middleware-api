@@ -8,7 +8,7 @@ chai.use(chaiHttp);
 
 const { request } = chai;
 
-const app = require('../../src/app');
+const app = require('../../../src/app');
 
 const userClientId = 'a3b8d425-2b60-4ad7-becc-bedf2ef860bd';
 const adminClientId = '4a0573eb-56d0-45d5-ab36-bebf33c5eb36';

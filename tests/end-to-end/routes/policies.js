@@ -8,14 +8,12 @@ chai.use(chaiHttp);
 
 const { request } = chai;
 
-const app = require('../../src/app');
+const app = require('../../../src/app');
 
-const userId = 'a3b8d425-2b60-4ad7-becc-bedf2ef860bd';
-const userName = 'Britney';
 const listLimit = 2;
 
 const validUserCredentials = {
-  username: 'barnettblankenship@quotezart.com',
+  username: 'manningblankenship@quotezart.com',
   password: 'password',
 };
 const validAdminCredentials = {
@@ -23,9 +21,9 @@ const validAdminCredentials = {
   password: 'password',
 };
 
-describe('Clients Controller', () => {
+describe('Policies/ Controller', () => {
   it('When sending a request without authentication, then receive a 401 error', (done) => {
-    request(app).get('/api/v1/clients')
+    request(app).post('/api/v1/policies')
       .end((error, response) => {
         expect(response).to.have.status(401);
         expect(response.body).to.have.property('code', '401');
@@ -42,12 +40,12 @@ describe('Clients Controller', () => {
           done();
         });
     });
-    it('When sending a request, redirect to /clients/{id} where id = this clients id', (done) => {
-      request(app).get('/api/v1/clients')
+    it('When sending a request, then receive a list of up to 10 of my own policies', (done) => {
+      request(app).get('/api/v1/policies')
         .set('Authorization', `${auth.type} ${auth.token}`)
         .end((error, response) => {
           expect(response).to.have.status(200);
-          expect(response.body).to.have.property('id', userId);
+          expect(response.body.items).to.have.length.of.at.most(10);
           done();
         });
     });
@@ -61,31 +59,12 @@ describe('Clients Controller', () => {
           done();
         });
     });
-    it('When sending a request, then receive a list of up to 10 clients with their policies', (done) => {
-      request(app).get('/api/v1/clients')
-        .set('Authorization', `${auth.type} ${auth.token}`)
-        .end((error, response) => {
-          expect(response).to.have.status(200);
-          expect(response.body.items).to.have.length.of.at.most(10);
-          done();
-        });
-    });
-    it('When sending a request with parameter limit = n, then receive a list of n clients with their policies', (done) => {
-      request(app).get(`/api/v1/clients?limit=${listLimit}`)
+    it('When sending a request with parameter limit = n, then receive a list of n policies for all users', (done) => {
+      request(app).get(`/api/v1/policies?limit=${listLimit}`)
         .set('Authorization', `${auth.type} ${auth.token}`)
         .end((error, response) => {
           expect(response).to.have.status(200);
           expect(response.body.items).to.have.length.of.at.most(listLimit);
-          done();
-        });
-    });
-    it('When sending a request with parameter name = <?>, then receive a list of up to 10 clients with the name = <?>', (done) => {
-      request(app).get(`/api/v1/clients?name=${userName}`)
-        .set('Authorization', `${auth.type} ${auth.token}`)
-        .end((error, response) => {
-          expect(response).to.have.status(200);
-          expect(response.body.items).to.have.length.of.at.most(10);
-          expect(response.body.items.pop()).to.have.property('name', userName);
           done();
         });
     });
