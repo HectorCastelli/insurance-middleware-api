@@ -53,6 +53,17 @@ describe('Clients/{id} Controller', () => {
           done();
         });
     });
+    it('When using me as the client id, then receive the associated client data', (done) => {
+      request(app).get('/api/v1/clients/me')
+        .set('Authorization', `${auth.type} ${auth.token}`).end((error, response) => {
+          expect(response.body).to.have.property('id', userClientId);
+          expect(response.body).to.have.property('name');
+          expect(response.body).to.have.property('email');
+          expect(response.body).to.have.property('role');
+          expect(response.body).to.have.property('policies');
+          done();
+        });
+    });
     it('When sending a request with a client id owned by another user, then receive a 403 error', (done) => {
       request(app).get(`/api/v1/clients/${adminClientId}`)
         .set('Authorization', `${auth.type} ${auth.token}`)

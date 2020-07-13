@@ -21,12 +21,9 @@ class DareApi {
   }
 
   async initialize() {
-    const completedAPI = await this.updateToken().then(async (tokenizedAPI) => {
-      const dataFetchTasks = [tokenizedAPI.fetchClients(), tokenizedAPI.fetchPolicies()];
-      const apiWithData = await Promise.all(dataFetchTasks).then((updatedApi) => updatedApi);
-      return apiWithData.pop();
-    });
-    return completedAPI;
+    const completedAPI = await this.updateToken();
+    const apiWithData = await Promise.all([completedAPI.fetchClients(), completedAPI.fetchPolicies()]);
+    return apiWithData.pop();
   }
 
   async updateToken() {

@@ -24,6 +24,7 @@
     - [End-To-End tests](#end-to-end-tests)
     - [Final Steps](#final-steps)
   - [Session 4 - Documentation](#session-4---documentation)
+  - [Session 5 - Feedback](#session-5---feedback)
 
 ## Session 0 - Planning
 
@@ -239,3 +240,14 @@ Now, the only thing that remains is the documentation portion of the work.
 I want to update the Readme file and add a list of my commands, I also want to point users towards the Swagger file.
 
 ## Session 4 - Documentation
+
+## Session 5 - Feedback
+
+This is the feedback received from the reviewer:
+
+- Replace usages of pop() and with find()
+- Replace usage of filter with find() (where applicable)
+- Address in-code TO-DOs
+- Refactor integration tests to be leverage mocks on the 3rd party APIs (to be network independent).
+- Setup git commit hooks to force linting and testing.
+- Avoid code rewrite with the creation of extra modules (Services)

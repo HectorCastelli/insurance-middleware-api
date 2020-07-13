@@ -2,6 +2,9 @@ const express = require('express');
 
 const router = new express.Router();
 
+// Get Secret key
+const secretKey = process.env.JWT_KEY || 'secret';
+
 const { body } = require('express-validator');
 const jwt = require('jsonwebtoken');
 const inputValidation = require('../middleware/inputValidation');
@@ -12,9 +15,8 @@ const DareAPI = require('../services/DareAPI');
 router.post('/', inputValidation(body('username').isEmail().normalizeEmail(), body('password').isAlphanumeric()), (req, res, next) => {
   const loginObject = req.body;
   new DareAPI().initialize().then((dareAPI) => {
-    if (dareAPI.clients.some((client) => client.email === loginObject.username)) {
-      const authClient = dareAPI.client
-        .filter((client) => client.email === loginObject.username).pop();
+    const authClient = dareAPI.clients.find((client) => client.email === loginObject.username);
+    if (authClient) {
       // Pretend to check if the user email+password combination matches.
       if (loginObject.password !== 'password') {
         throw new APIError(401, 'The credentials do not match');
@@ -27,7 +29,7 @@ router.post('/', inputValidation(body('username').isEmail().normalizeEmail(), bo
           iat: currentEpoch,
           exp: currentEpoch + 3600,
         };
-        const token = jwt.sign(claim, 'secretKey');
+        const token = jwt.sign(claim, secretKey);
         res.status(200).send({
           token,
           type: 'Bearer',

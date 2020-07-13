@@ -23,7 +23,7 @@ const validAdminCredentials = {
   password: 'password',
 };
 
-describe('Clients/{id} Controller', () => {
+describe('Clients/{id}/Policies Controller', () => {
   it('When sending a request without authentication, then receive a 401 error', (done) => {
     request(app).get(`/api/v1/clients/${userClientId}/policies`)
       .end((error, response) => {
@@ -50,7 +50,7 @@ describe('Clients/{id} Controller', () => {
           done();
         });
     });
-    // TODO: Since no Client with role = "user" owns a policy, this test-case can never suceed
+    // TODO: Since no Client with role = "user" owns a policy, this test-case can never succeed
     it.skip('When sending a request with a client id owned by another user, then receive a 403 error', (done) => {
       request(app).get(`/api/v1/clients/${adminClientId}/policies`)
         .set('Authorization', `${auth.type} ${auth.token}`)

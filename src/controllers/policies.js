@@ -3,41 +3,40 @@ const express = require('express');
 const router = new express.Router();
 
 const { query } = require('express-validator');
-const DareAPI = require('../services/DareAPI');
+const PolicyService = require('../services/PolicyService');
 const paginate = require('../middleware/pagination');
 const inputValidation = require('../middleware/inputValidation');
-const APIError = require('../types/APIError');
 
-router.get('/', inputValidation(query('limit').isNumeric().optional(), query('page').isNumeric().optional()), (req, res, next) => {
-  new DareAPI().initialize().then((dareAPI) => {
-    let { policies } = dareAPI;
+router.get('/', inputValidation(query('limit').isNumeric().optional(), query('page').isNumeric().optional()), async (req, res, next) => {
+  try {
+    let policies;
     if (req.auth.role === 'user') {
-      // Get list of own policies
-      policies = policies.filter((policy) => policy.email === req.auth.id);
-    }
-
-    if (policies.length === 0) {
-      throw new APIError(404, 'No Policies found for this user');
+      policies = await PolicyService.getPoliciesByClientId(req.auth.sub);
+    } else {
+      policies = await PolicyService.getPolicies();
     }
     const body = paginate(policies, req);
 
     res.status(200).send(body);
-  }).catch((err) => { next(err); });
+  } catch (error) {
+    next(error);
+  }
 });
 
-router.get('/:id', (req, res, next) => {
-  new DareAPI().initialize().then((dareAPI) => {
-    let policies = dareAPI.policies.filter((policy) => policy.id === req.params.id);
+router.get('/:id', async (req, res, next) => {
+  try {
+    let policies;
     if (req.auth.role === 'user') {
-      // Get list of own policies
-      policies = policies.filter((policy) => policy.clientId === req.auth.sub);
+      policies = await PolicyService.getPolicyByIdForClientId(req.params.id, req.auth.sub);
+    } else {
+      policies = await PolicyService.getPolicyById(req.params.id);
     }
+    const body = paginate(policies, req);
 
-    if (policies.length === 0) {
-      throw new APIError(404, 'No Policy found with this id');
-    }
-    res.status(200).send(policies.pop());
-  }).catch((err) => { next(err); });
+    res.status(200).send(body);
+  } catch (error) {
+    next(error);
+  }
 });
 
 module.exports = router;

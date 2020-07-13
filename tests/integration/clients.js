@@ -44,11 +44,10 @@ describe('Clients Controller', () => {
     });
     it('When sending a request, redirect to /clients/{id} where id = this clients id', (done) => {
       request(app).get('/api/v1/clients')
-        .redirects(0)
         .set('Authorization', `${auth.type} ${auth.token}`)
         .end((error, response) => {
-          expect(response).to.have.status(302);
-          expect(response).to.have.header('Location', `./clients/${userId}`);
+          expect(response).to.have.status(200);
+          expect(response.body).to.have.property('id', userId);
           done();
         });
     });
@@ -71,7 +70,7 @@ describe('Clients Controller', () => {
           done();
         });
     });
-    it('When sending a request with parameter limit = n, hen receive a list of n clients with their policies', (done) => {
+    it('When sending a request with parameter limit = n, then receive a list of n clients with their policies', (done) => {
       request(app).get(`/api/v1/clients?limit=${listLimit}`)
         .set('Authorization', `${auth.type} ${auth.token}`)
         .end((error, response) => {
@@ -86,7 +85,7 @@ describe('Clients Controller', () => {
         .end((error, response) => {
           expect(response).to.have.status(200);
           expect(response.body.items).to.have.length.of.at.most(10);
-          expect(response.body.items[0]).to.have.property('name', userName);
+          expect(response.body.items.pop()).to.have.property('name', userName);
           done();
         });
     });

@@ -14,7 +14,7 @@ If you wish to use this API as an end-user, please see the endpoint [`/api-docs`
 
 To start the API use the command:
 
-`npm run launch`
+`npm run start`
 
 You should see the following output on your terminal:
 
