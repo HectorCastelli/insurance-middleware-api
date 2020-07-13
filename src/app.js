@@ -30,6 +30,7 @@ app.use((error, _req, res, _next) => {
   } else if (error.name === 'UnauthorizedError') {
     res.status(401).send(new APIError(401, 'You are not authenticated.'));
   } else {
+    // eslint-disable-next-line no-console
     console.error('500:', error);
     res.status(500).send(error);
   }

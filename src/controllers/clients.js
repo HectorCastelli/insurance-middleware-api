@@ -18,7 +18,8 @@ router.get('/',
       } else {
         clients = await ClientService.getClientByName(req.query.name);
         clients = paginate(clients, req);
-        clients.items = await Promise.all(clients.items.map((client) => ClientService.getPolicies(client)));
+        clients.items = await Promise.all(clients.items
+          .map((client) => ClientService.getPolicies(client)));
       }
       res.status(200).send(clients);
     } catch (error) {

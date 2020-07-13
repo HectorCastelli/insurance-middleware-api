@@ -22,7 +22,9 @@ class DareApi {
 
   async initialize() {
     const completedAPI = await this.updateToken();
-    const apiWithData = await Promise.all([completedAPI.fetchClients(), completedAPI.fetchPolicies()]);
+    const apiWithData = await Promise.all(
+      [completedAPI.fetchClients(), completedAPI.fetchPolicies()],
+    );
     return apiWithData.pop();
   }
 
